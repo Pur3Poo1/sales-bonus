@@ -45,6 +45,7 @@ function analyzeSalesData(data, options) {
         || data.sellers.length === 0
         || !Array.isArray(data.purchase_records)
         || data.purchase_records.length === 0
+        || data.products.length === 0
     ) {
         throw new Error ("Некорректные входные данные");
     }
@@ -84,8 +85,8 @@ function analyzeSalesData(data, options) {
             const itemCost = product.purchase_price * item.quantity;
             const itemRevenue = calculateRevenue(item, product);
             
-            seller.revenue += itemRevenue;
-            seller.profit += itemRevenue - itemCost;
+            seller.revenue += Number(itemRevenue.toFixed(2));
+            seller.profit += Number((itemRevenue - itemCost).toFixed(2));
             
             if (seller.products_sold[item.sku] === undefined) {
                 seller.products_sold[item.sku] = 0;
