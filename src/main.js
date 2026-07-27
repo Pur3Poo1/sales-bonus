@@ -109,15 +109,16 @@ function analyzeSalesData(data, options) {
             .map(product => {return {sku: product[0], quantity: product[1]}})
             .sort((a,b) => b.quantity - a.quantity).slice(0,10);
     });
+    console.log(sellerStats)
     // @TODO: Подготовка итоговой коллекции с нужными полями
     return sellerStats.map(seller => ({
         seller_id: seller.id,
         name: seller.first_name + " " + seller.last_name,
-        revenue: +seller.revenue.toFixed(2),
-        profit: +seller.profit.toFixed(2),
+        revenue: Number(seller.revenue.toFixed(2)),
+        profit: Number(seller.profit.toFixed(2)),
         sales_count: seller.sales_count,
         top_products: seller.top_products,
-        bonus: +seller.bonus.toFixed(2)
+        bonus: Number(seller.bonus.toFixed(2))
     }));
 }
 
