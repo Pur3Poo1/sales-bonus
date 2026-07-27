@@ -83,15 +83,15 @@ function analyzeSalesData(data, options) {
 
         record.items.forEach(item => {
             const product = productIndex[item.sku];
-            product.cost = product.purchase_price * item.quantity;
+            let itemCost = product.purchase_price * item.quantity;
 
-            product.revenue = calculateRevenue(item, product);
+            itemRevenue = calculateRevenue(item, product);
             if (seller.profit === undefined){
                 seller.profit = 0;
             }
 
-            seller.revenue += product.revenue
-            seller.profit += product.revenue - product.cost;
+            seller.revenue += itemRevenue
+            seller.profit += itemRevenue - itemCost;
             // Увеличить число всех проданных товаров у продавца на количество проданных товаров в конкретном чеке
             if (seller.products_sold[item.sku] === undefined) {
                 seller.products_sold[item.sku] = 0;
