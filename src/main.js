@@ -70,12 +70,12 @@ function analyzeSalesData(data, options) {
         if (seller.sales_count === undefined){
             seller.sales_count = 0;
         }
+         if (!seller) return;
         seller.sales_count++;
 
         if (seller.revenue === undefined){
             seller.revenue = 0;
         }
-        //seller.revenue += record.total_amount;
 
         if (!seller.products_sold){
             seller.products_sold = {};
@@ -85,7 +85,7 @@ function analyzeSalesData(data, options) {
             const product = productIndex[item.sku];
             let itemCost = product.purchase_price * item.quantity;
 
-            itemRevenue = calculateRevenue(item, product);
+            let itemRevenue = calculateRevenue(item, product);
             if (seller.profit === undefined){
                 seller.profit = 0;
             }
