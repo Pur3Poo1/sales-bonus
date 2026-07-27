@@ -49,8 +49,8 @@ function analyzeSalesData(data, options) {
 
     // @TODO: Проверка наличия опций
     const { calculateRevenue, calculateBonus} = options;
-        if (!typeof calculateRevenue === "function"
-            || !typeof calculateBonus === "function"
+        if (typeof calculateRevenue !== "function"
+            || typeof calculateBonus !== "function"
     ) {
         throw new Error ("Некорректные входные данные");
     }
@@ -75,7 +75,7 @@ function analyzeSalesData(data, options) {
         if (seller.revenue === undefined){
             seller.revenue = 0;
         }
-        seller.revenue += record.total_amount;
+        //seller.revenue += record.total_amount;
 
         if (!seller.products_sold){
             seller.products_sold = {};
@@ -90,13 +90,13 @@ function analyzeSalesData(data, options) {
                 seller.profit = 0;
             }
 
+            seller.revenue += product.revenue
             seller.profit += product.revenue - product.cost;
-
             // Увеличить число всех проданных товаров у продавца на количество проданных товаров в конкретном чеке
             if (seller.products_sold[item.sku] === undefined) {
                 seller.products_sold[item.sku] = 0;
             }
-            seller.products_sold[item.sku]+= item.quantity;
+            seller.products_sold[item.sku] += item.quantity;
         })
     })
 
