@@ -20,13 +20,13 @@ function calculateSimpleRevenue(purchase, _product) {
 function calculateBonusByProfit(index, total, seller) {
     // @TODO: Расчет бонуса от позиции в рейтинге
     if (index === 0){
-        return 15;
+        return 150;
     } else if ( index === 1 || index === 2) {
-        return 10;
+        return 100;
     } else if (index === total - 1){
         return 0;
     } else {
-        return 5;
+        return 50;
     }
 }
 
@@ -99,7 +99,7 @@ function analyzeSalesData(data, options) {
     sellerStats.sort((a,b) => b.profit - a.profit)
     // @TODO: Назначение премий на основе ранжирования
     sellerStats.forEach((seller, index) => {
-        seller.bonus = calculateBonusByProfit(index, sellerStats.length, seller)*seller.profit / 100;
+        seller.bonus = calculateBonusByProfit(index, sellerStats.length, seller)*seller.profit / 1000;
         seller.top_products = Object.entries(seller.products_sold)
             .map(product => {return {sku: product[0], quantity: product[1]}})
             .sort((a,b) => b.quantity - a.quantity).slice(0,10);
