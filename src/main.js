@@ -109,7 +109,6 @@ function analyzeSalesData(data, options) {
             .map(product => {return {sku: product[0], quantity: product[1]}})
             .sort((a,b) => b.quantity - a.quantity).slice(0,10);
     });
-    console.log(sellerStats)
     // @TODO: Подготовка итоговой коллекции с нужными полями
     return sellerStats.map(seller => ({
         seller_id: seller.id,
